@@ -2,13 +2,18 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Card from '../components/Card/Card'
 import Layout from '../components/Layout/Layout'
+import Pagination from '../components/Pagination/Pagination'
 
 export default function Home() {
   const [characters, setCharacters] = useState(null)
-
+  const [pageNum, setPageNum] = useState(1)
   useEffect(() => {
-    axios.get('https://rickandmortyapi.com/api/character').then(response => setCharacters(response.data.results))
-  }, [])  
+    axios.get(`https://rickandmortyapi.com/api/character/?page=${pageNum}`).then(response => setCharacters(response.data.results))
+  }, [pageNum])  
+
+  function callback (num) {
+    setPageNum(num)
+  }
 
   if (!characters) return "No post!"
 
@@ -22,6 +27,7 @@ export default function Home() {
         </li>
       })}
       </ul>
+      <Pagination onClick={callback} />
     </Layout>
   )
 }
