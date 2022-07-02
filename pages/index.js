@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <Layout>
       <h1 className="text-3xl font-bold underline">Rick & Morty Case</h1>
-      <ul className="grid grid-rows-4 grid-flow-col gap-2">
+      <ul className=" gap-10 flex flex-wrap pt-6 items-center justify-center">
       {characters?.map(character => {
         return <li key={character.id}>
           <Card data={character} />
