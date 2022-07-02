@@ -4,7 +4,7 @@ function Card({data}) {
     return (
         <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
-                <img className="rounded-t-lg mx-auto" src={`${data?.image || '/'}`} alt={`${data?.name || "/"}`} />
+                <img className="rounded-t-lg mx-auto" loading="lazy" src={`${data?.image || '/'}`} alt={`${data?.name || "/"}`} />
             </a>
             <div className="p-5">
                 <a href="#">
