@@ -15,7 +15,7 @@ export default function Home() {
     setPageNum(num)
   }
 
-  if (!characters) return "No post!"
+  if (characters === null) return "No post!"
 
   return (
     <>
