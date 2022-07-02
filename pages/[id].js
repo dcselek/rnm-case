@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const getStaticPaths = () => {
-    let data = null;
-    axios.get(`https://rickandmortyapi.com/api/character/`).then(response => data = response.data.results);
+export const getStaticPaths = async () => {
+    const res = await axios.get('https://rickandmortyapi.com/api/character/');
+    const data = await res.data.results;
 
     const paths = data.map(character => {
         return {
@@ -18,13 +18,24 @@ export const getStaticPaths = () => {
     }
 }
 
-const Details = () => {
+export const getStaticProps = async (context) => {
+    const id = context.params.id;
+    const res = await axios.get(`https://rickandmortyapi.com/api/character/${id}`)
+    const data = await res.data;
+
+    return {
+        props: {
+            character: data
+        }
+    }
+}
+
+const Details = ({character}) => {
     return (
         <div>
         <h1>Details</h1>
         <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            quidem, quisquam.
+            {character.name}
         </p>
         </div>
     );
