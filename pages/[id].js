@@ -1,36 +1,48 @@
 import axios from 'axios';
 import Head from '../components/Layout/Head';
 
-export const getStaticPaths = async () => {
-    const pageNums = Array.from({length: 826}, (_, i) => i + 1)
+// TODO: Bu static page cozumudur.
+// export const getStaticPaths = async () => {
+//     const pageNums = Array.from({length: 826}, (_, i) => i + 1)
     
-    const res = await axios.get(`https://rickandmortyapi.com/api/character/${pageNums}`);
+//     const res = await axios.get(`https://rickandmortyapi.com/api/character/${pageNums}`);
+//     const data = await res.data;
+
+//     const paths = data.map(character => {
+//         return {
+//             params: {
+//                 id: character.id.toString()
+//             }
+//         }
+//     })
+
+//     return {
+//         paths,
+//         fallback: false
+//     }
+// }
+
+// export const getStaticProps = async (paths) => {
+//     const id = paths.params.id;
+//     const res = await axios.get(`https://rickandmortyapi.com/api/character/${id}`)
+//     const data = await res.data;
+
+//     return {
+//         props: {
+//             character: data
+//         }
+//     }
+// }
+
+//TODO: Server-Side Rendering
+export async function getServerSideProps(context) {
+    const {id} = context.params;
+    
+    const res = await axios.get(`https://rickandmortyapi.com/api/character/${id}`);
     const data = await res.data;
-
-    const paths = data.map(character => {
-        return {
-            params: {
-                id: character.id.toString()
-            }
-        }
-    })
-
-    return {
-        paths,
-        fallback: false
-    }
-}
-
-export const getStaticProps = async (paths) => {
-    const id = paths.params.id;
-    const res = await axios.get(`https://rickandmortyapi.com/api/character/${id}`)
-    const data = await res.data;
-
-    return {
-        props: {
-            character: data
-        }
-    }
+  
+    
+    return { props: { character: data } }
 }
 
 const Details = ({ character }) => {
